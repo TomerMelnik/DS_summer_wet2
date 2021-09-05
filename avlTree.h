@@ -15,7 +15,7 @@ public:
     Node* right;
     Node* left;
     int height;
-    int maxInSubtree;
+    T* maxInSubtree;
 
     explicit Node(T *value);
 
@@ -38,6 +38,8 @@ public:
     void remove(int key);
 
     Node<T> *find(int key);
+
+    T* getMaxValue();
 
 };
 
@@ -88,6 +90,13 @@ void AVLTree<T>::insert(T *data) {
     root = insertNode(root, data);
     numOfNodes++;
 
+}
+
+template<class T>
+T *AVLTree<T>::getMaxValue() {
+    if(root == nullptr) return nullptr;
+
+    return root->maxInSubtree;
 }
 
 template<class T>
@@ -322,10 +331,10 @@ template<class T>
 static void updateRank(Node<T> *node) {
     node->maxInSubtree = node->value;
     if (node->right != NULL && node->right->maxInSubtree > node->maxInSubtree) {
-        node->maxInSubtree = node->right->rank;
+        node->maxInSubtree = node->right->maxInSubtree;
     }
     if (node->left != NULL && node->left->maxInSubtree > node->maxInSubtree) {
-        node->maxInSubtree = node->left->rank;
+        node->maxInSubtree = node->left->maxInSubtree;
     }
 
 }
