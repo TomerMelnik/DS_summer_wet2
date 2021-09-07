@@ -8,14 +8,14 @@
 
 #include <iostream>
 
-template <class T>
+template<class T>
 class Node {
 public:
     T *data;
-    Node* right;
-    Node* left;
+    Node *right;
+    Node *left;
     int height;
-    T* maxInSubtree;
+    T *maxInSubtree;
 
     explicit Node(T *value);
 
@@ -23,13 +23,15 @@ public:
 };
 
 
-template <class T>
+template<class T>
 class AVLTree {
 public:
     Node<T> *root;
     int numOfNodes;
 
     AVLTree<T>() : root(NULL), numOfNodes(0) {}
+
+    AVLTree<T>(T **arr, int size);
 
     ~AVLTree();
 
@@ -39,17 +41,17 @@ public:
 
     Node<T> *find(int key);
 
-    T* getMaxValue();
+    T *toArray();
+
+    T *getMaxValue();
 
 };
 
 static int max(int a, int b);
 
 
-
 template<class T>
-Node<T>::Node(T *value)
-{
+Node<T>::Node(T *value) {
     data = value;
     right = nullptr;
     left = nullptr;
@@ -63,9 +65,29 @@ Node<T>::~Node() {
     if (data != NULL) {
         delete data;
     }
-
-
 }
+
+template<class T>
+Node<T> *fillTree(T **arr, int start, int end) {
+    if (start > end)
+        return nullptr;
+    int mid = (start + end) / 2;
+    Node<T> *root = new Node<T>(arr[mid]);
+    root->left = fillTree(arr, start, mid - 1);
+    root->right = fillTree(keyDataArr, mid + 1, end);
+    root->height = 1 + max(getHeight(root->left), getHeight(root->right));
+    T *maxInSubtreeL = root->left->maxInSubtree;
+    T *maxInSubtreeR = root->right->maxInSubtree;
+    T *maxInSubtreeRoot = (maxInSubtreeL > maxInSubtreeR) ? maxInSubtreeL : maxInSubtreeR;
+    root->maxInSubtree = (maxInSubtreeRoot > *(arr[mid])) ? maxInSubtreeRoot : arr[mid];
+    return root;
+}
+
+template<class T>
+AVLTree<T>::AVLTree(T **arr, int size) : numOfNodes(size) {
+    root = fillTree(arr, 0, size - 1);
+}
+
 
 template<class T>
 AVLTree<T>::~AVLTree() {
@@ -94,9 +116,26 @@ void AVLTree<T>::insert(T *data) {
 
 template<class T>
 T *AVLTree<T>::getMaxValue() {
-    if(root == nullptr) return nullptr;
+    if (root == nullptr) return nullptr;
 
     return root->maxInSubtree;
+}
+
+template<class T>
+T **AVLTree<T>::toArray() {
+    T **arr = new T *[numOfNodes];
+    int *currentNum;
+    *currentNum = 0;
+    toArrayAux(currentNum, root, arr);
+    return arr;
+}
+
+void toArrayAux(int *currentNum, Node<T> *current, T **arr) {
+    if (!current) return;
+    toArrayAux(currentNum, current->left, arr);
+    arr[currentNum] = current->data;
+    (*currentNum)++;
+    toArrayAux(currentNum, current->right, arr);
 }
 
 template<class T>
@@ -125,19 +164,16 @@ Node<T> *findNode(Node<T> *node, int key) {
     return node;
 }
 
-template <class T>
-static int getHeight(Node<T>* node)
-{
+template<class T>
+static int getHeight(Node<T> *node) {
     if (node == NULL)
         return 0;
     return node->height;
 }
 
 
-
-template <class T>
-static Node<T>* rightRotate(Node<T>* old_root)
-{
+template<class T>
+static Node<T> *rightRotate(Node<T> *old_root) {
     Node<T> *new_root = old_root->left;
     Node<T> *right_son = new_root->right;
 
@@ -152,10 +188,9 @@ static Node<T>* rightRotate(Node<T>* old_root)
     return new_root;
 }
 
-template <class T>
-static Node<T>* leftRotate(Node<T>* old_root)
-{
-    Node<T>* new_root = old_root->right;
+template<class T>
+static Node<T> *leftRotate(Node<T> *old_root) {
+    Node<T> *new_root = old_root->right;
     Node<T> *left_son = new_root->left;
 
     new_root->left = old_root;
@@ -170,17 +205,15 @@ static Node<T>* leftRotate(Node<T>* old_root)
     return new_root;
 }
 
-template <class T>
-static int getBalanceFactor(Node<T>* node)
-{
+template<class T>
+static int getBalanceFactor(Node<T> *node) {
     if (node == NULL)
         return 0;
     return getHeight(node->left) - getHeight(node->right);
 }
 
-template <class T>
-static Node<T> *insertNode(Node<T> *root, T *data)
-{
+template<class T>
+static Node<T> *insertNode(Node<T> *root, T *data) {
     if (root == NULL) {
         Node<T> *node = new Node<T>(data);
         return node;
@@ -212,7 +245,7 @@ static Node<T> *insertNode(Node<T> *root, T *data)
     return root;
 }
 
-template <class T>
+template<class T>
 static Node<T> *getInorderNext(Node<T> *node) {// gets the node with the next closest large value
     Node<T> *current = node;
     while (current->left != NULL)
@@ -220,7 +253,7 @@ static Node<T> *getInorderNext(Node<T> *node) {// gets the node with the next cl
     return current;
 }
 
-template <class T>
+template<class T>
 static Node<T> *getInorderFather(Node<T> *node)//gets Father of Inorder Successor
 {
     Node<T> *current = node;
@@ -230,7 +263,7 @@ static Node<T> *getInorderFather(Node<T> *node)//gets Father of Inorder Successo
 }
 
 
-template <class T>
+template<class T>
 static Node<T> *
 rotateAux(Node<T> *curr_node, Node<T> *successor_father) // Dont ask me why but if i remove this nothing works
 {
@@ -278,9 +311,7 @@ static Node<T> *removeNode(Node<T> *root, int key) {
             Node<T> *temp = root;
             if (root->left != NULL) {
                 root = root->left;
-            }
-            else
-            {
+            } else {
                 root = root->right;
             }
 
@@ -344,7 +375,6 @@ static int max(int a, int b) {
         return a;
     return b;
 }
-
 
 
 #endif //DS_SUMMER_WET1_AVLTREE_H
