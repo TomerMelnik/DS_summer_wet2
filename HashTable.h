@@ -4,25 +4,27 @@
 
 #ifndef RATUV2_HASHTABLE_H
 #define RATUV2_HASHTABLE_H
-#include "NodeCourse.h"
+#include "unionFind.h"
 #include "LinkedList.h"
+#include "ImageNode.h"
 
 #define REDUCE 2
 #define INCREASE 3
 #define DEFAULTSIZE 10
+
 class HashTable{
-    LinkedList<NodeCourse> **table;
+    LinkedList<imageNode> **table;
     int sizeOfTable;
-    int numberOfCourses;
+    int numberOfImages;
 
 
     void resizeTable(int reduceOrIncrease);
     void reduceTable();
     void increaseTable();
-    int Hash(int courseId) const;
+    int Hash(int imageID) const;
 
-    void insertAux(NodeCourse *, int size);
-    static int HashAux(int size ,int courseId) ;
+    void insertAux(imageNode*, int size);
+    static int HashAux(int size ,int imageID) ;
 
     public:
 
@@ -30,8 +32,8 @@ class HashTable{
     HashTable(int size = DEFAULTSIZE);
     ~HashTable();
     HashTable(const HashTable& T);
-    void insert(NodeCourse*);
-    NodeCourse* find(int);
+    void insert(imageNode*);
+    unionFind* find(int);
     void remove(int);
 
 

@@ -9,6 +9,8 @@
 #include <ostream>
 #include <string>
 #include "avlTree.h"
+#include "exceptions.h"
+
 
 class LabelNode {
     int id;
@@ -37,9 +39,9 @@ class LabelNode {
 class unionFind {
     int *groupArray;
     int *groupSizeArray;
-    AVLTree<LabelNode> *groupLabelTree;
     int size;
 public:
+    AVLTree<LabelNode>* *groupLabelTree;
     unionFind(int size);
 
     ~unionFind();
@@ -47,7 +49,6 @@ public:
     int Find(int id);
 
     void Union(int first, int second);
-    void
 };
 
 

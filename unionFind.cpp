@@ -65,7 +65,7 @@ int unionFind::Find(int id) {
 void unionFind::Union(int first, int second) {
     int firstG = Find(first);
     int secondG = Find(second);
-    if(firstG == secondG) return;
+    if(firstG == secondG) throw Failure();
     if (groupSizeArray[firstG] < groupSizeArray[secondG]) {
         groupParentArray[firstG] = secondG;
     }
