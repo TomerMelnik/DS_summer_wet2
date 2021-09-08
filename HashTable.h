@@ -11,6 +11,7 @@
 #define REDUCE 2
 #define INCREASE 3
 #define DEFAULTSIZE 10
+#include "ImageNode.h"
 
 class HashTable{
     LinkedList<imageNode> **table;
@@ -33,7 +34,7 @@ class HashTable{
     ~HashTable();
     HashTable(const HashTable& T);
     void insert(imageNode*);
-    unionFind* find(int);
+    imageNode* find(int);
     void remove(int);
 
 

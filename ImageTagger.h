@@ -4,14 +4,17 @@
 
 #ifndef DS_SUMMER_WET2_IMAGETAGGER_H
 #define DS_SUMMER_WET2_IMAGETAGGER_H
-
+#include "HashTable.h"
 
 class ImageTagger {
     int pixels;
-
+    HashTable* hash;
 
 public:
-    ImageTagger(int pixels);
+    ImageTagger(int pixels) : pixels(pixels){
+        hash = new HashTable();
+    }
+    ~ImageTagger();
     void addImage(int imageID);
     void deleteImage(int imageID);
     void SetLabelScore( int imageID, int pixel, int label, int score);

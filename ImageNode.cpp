@@ -16,7 +16,7 @@ void imageNode::setLabelScore(int pixel, int label, int score) {
     groupLabelTree->insert(labelNode);
 }
 
-void imageNode::resetLabelScore(int pixel, int label, int score) {
+void imageNode::resetLabelScore(int pixel, int label) {
     int g = UF->find(pixel);
     AVLTree<LabelNode>* groupLabelTree = UF->groupLabelTree[g];
     if(groupLabelTree->find(label)) groupLabelTree->remove(label);

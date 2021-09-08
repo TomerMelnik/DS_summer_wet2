@@ -18,7 +18,7 @@ public:
         return imageID;
     }
     void setLabelScore(int pixel, int label, int score);
-    void resetLabelScore(int pixel, int label, int score);
+    void resetLabelScore(int pixel, int label);
     void getHighestScoredLabel(int pixel, int* label);
     void mergeSuperPixels(int pixel1, int pixel2);
 };
