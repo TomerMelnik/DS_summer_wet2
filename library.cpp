@@ -61,8 +61,6 @@ StatusType ResetLabelScore(void *DS, int imageID, int pixel, int label){
 
 StatusType GetHighestScoredLabel(void *DS, int imageID, int pixel, int *label){
     if(DS == nullptr) return INVALID_INPUT;
-
-
     try{
         ((ImageTagger *)DS)->GetHighestScoredLabel( imageID,  pixel, label);
         return SUCCESS;
