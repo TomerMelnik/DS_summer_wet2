@@ -18,7 +18,7 @@ class LabelNode {
 public:
     LabelNode(int label, int score) : id(label), data(score) {}
 
-    int getId() { return id; }
+    int getID() { return id; }
 
     int getData() { return data; }
 

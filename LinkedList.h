@@ -25,10 +25,7 @@ class ListNode {
     std::shared_ptr <ListNode> previous;
     U *data;
 
-    template<class T> friend
-    class LinkedList;
-
-    friend class CourseManager;
+    template<class T> friend class LinkedList;
 
 public:
     ListNode();
