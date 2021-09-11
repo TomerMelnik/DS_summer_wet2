@@ -15,4 +15,5 @@ class Failure : public std::exception {
 
 class Invalid_Input : public std::exception {
 };
+
 #endif //DATASTRUCTURES2_1_EXCEPTIONS_H

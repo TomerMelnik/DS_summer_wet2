@@ -21,10 +21,10 @@ extern "C" {
 /* Return Values
  * ----------------------------------- */
 typedef enum {
-	SUCCESS = 0,
-	FAILURE = -1,
-	ALLOCATION_ERROR = -2,
-	INVALID_INPUT = -3
+    SUCCESS = 0,
+    FAILURE = -1,
+    ALLOCATION_ERROR = -2,
+    INVALID_INPUT = -3
 } StatusType;
 
 /* Required Interface for the Data Structure
@@ -35,7 +35,7 @@ typedef enum {
  * Output:        DS - A pointer to the data structure.
  * Return Values: A pointer to a new instance of the data structure - as a void* pointer.
  */
-void * Init(int pixels);
+void *Init(int pixels);
 
 /* Description:   Adds a new image to the data structure.
  * Input:         DS - A pointer to the data structure.
@@ -117,7 +117,7 @@ StatusType MergeSuperPixels(void *DS, int imageID, int pixel1, int pixel2);
  * Output:        None.
  * Return Values: None.
  */
-void Quit(void** DS);
+void Quit(void **DS);
 
 #ifdef __cplusplus
 }

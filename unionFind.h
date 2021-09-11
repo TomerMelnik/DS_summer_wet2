@@ -24,7 +24,7 @@ class LabelNode {
 
     int getData() { return data; }
 
-    void setData(int data) { this->data = data;}
+    void setData(int data) { this->data = data; }
 
     bool operator>(LabelNode n) {
         return this->data > n.getData();
@@ -41,7 +41,8 @@ class unionFind {
     int *groupSizeArray;
     int size;
 public:
-    AVLTree<LabelNode>* *groupLabelTree;
+    AVLTree<LabelNode> **groupLabelTree;
+
     unionFind(int size);
 
     ~unionFind();

@@ -5,25 +5,20 @@
 #include "unionFind.h"
 
 
-AVLTree<LabelNode>* mergeTrees(AVLTree<LabelNode>* t1, AVLTree<LabelNode>* t2)
-{
-    LabelNode** arr1 = t1->toArray();
-    LabelNode** arr2 = t2->toArray();
+AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
+    LabelNode **arr1 = t1->toArray();
+    LabelNode **arr2 = t2->toArray();
     int size = t1->numOfNodes + t2->numOfNodes;
-    LabelNode** arrTemp = (LabelNode**)malloc(sizeof(LabelNode*)*size);
-    int i =0;
-    while(i<size){
-        if((*arr1)->getID() > (*arr2)->getID())
-        {
+    LabelNode **arrTemp = (LabelNode **) malloc(sizeof(LabelNode *) * size);
+    int i = 0;
+    while (i < size) {
+        if ((*arr1)->getID() > (*arr2)->getID()) {
             arrTemp[i] = (*arr1);
             arr1++;
-        }
-        else if((*arr1)->getID() < (*arr2)->getID())
-        {
+        } else if ((*arr1)->getID() < (*arr2)->getID()) {
             arrTemp[i] = (*arr2);
             arr2++;
-        }
-        else{
+        } else {
             arrTemp[i] = (*arr2);
             arrTemp[i]->setData((*arr1)->getData() + (*arr2)->getData());
             arr2++;
@@ -32,25 +27,24 @@ AVLTree<LabelNode>* mergeTrees(AVLTree<LabelNode>* t1, AVLTree<LabelNode>* t2)
         }
         i++;
     }
-    arrTemp = (LabelNode*)realloc(arrTemp, sizeof(LabelNode)*size);
-    AVLTree<LabelNode>* newTree = new AVLTree<LabelNode>(arrTemp);
+    arrTemp = (LabelNode *) realloc(arrTemp, sizeof(LabelNode) * size);
+    AVLTree<LabelNode> *newTree = new AVLTree<LabelNode>(arrTemp);
     delete t1;
     delete t2;
     return newTree;
 }
 
-unionFind::unionFind(int size): size(size)
-{
+unionFind::unionFind(int size) : size(size) {
     groupArray = new int[size];
     groupSizeArray = new int[size];
     groupLabelTree = new AVLTree<LabelNode>[size];
-    for(int i = 0; i<size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         groupArray[i] = i;
         groupSizeArray[i] = 1;
         groupLabelTree[i] = new AVLTree<LabelNode>();
     }
 }
+
 unionFind::~unionFind() {
     delete[] groupArray;
     delete[] groupLabelTree;
@@ -65,18 +59,16 @@ int unionFind::Find(int id) {
 void unionFind::Union(int first, int second) {
     int firstG = Find(first);
     int secondG = Find(second);
-    if(firstG == secondG) throw Failure();
+    if (firstG == secondG) throw Failure();
     if (groupSizeArray[firstG] < groupSizeArray[secondG]) {
         groupParentArray[firstG] = secondG;
-    }
-    else if (groupSizeArray[firstG] > groupSizeArray[secondG]) {
+    } else if (groupSizeArray[firstG] > groupSizeArray[secondG]) {
         groupParentArray[secondG] = firstG;
-    }
-    else {
+    } else {
         groupParentArray[firstG] = secondG;
         groupSizeArray[secondG] = groupSizeArray[secondG] + 1;
     }
     int g = Find(first);
-    AVLTree<LabelNode>* newTree = mergeTrees(groupLabelTree[firstG], groupLabelTree[secondG]);
+    AVLTree<LabelNode> *newTree = mergeTrees(groupLabelTree[firstG], groupLabelTree[secondG]);
     groupLabelTree[g] = newTree;
 }

@@ -5,7 +5,7 @@
 #include "HashTable.h"
 
 HashTable::HashTable(int size) {
-    table = new LinkedList<imageNode>*[size];
+    table = new LinkedList<imageNode> *[size];
     sizeOfTable = size;
     numberOfImages = 0;
 
@@ -13,6 +13,7 @@ HashTable::HashTable(int size) {
         table[i] = new LinkedList<imageNode>;
     }
 }
+
 HashTable::~HashTable() {
     if (table != nullptr) {
         for (int i = 0; i < sizeOfTable; ++i) {
@@ -21,30 +22,29 @@ HashTable::~HashTable() {
         }
     }
 
-    delete [] table;
+    delete[] table;
 }
 
-int HashTable:: Hash(int imageID) const{
+int HashTable::Hash(int imageID) const {
     return (imageID % sizeOfTable);
 }
 
-int HashTable::HashAux(int size ,int imageID) {
+int HashTable::HashAux(int size, int imageID) {
     return (imageID % size);
 }
 
-void HashTable::resizeTable(int reduceOrIncrease){
-    int new_size ;
-    if(reduceOrIncrease == REDUCE) {
+void HashTable::resizeTable(int reduceOrIncrease) {
+    int new_size;
+    if (reduceOrIncrease == REDUCE) {
         new_size = (sizeOfTable / 2 < DEFAULTSIZE) ? DEFAULTSIZE : sizeOfTable / 4;
-    }
-    else {
+    } else {
         new_size = (sizeOfTable == 0) ? DEFAULTSIZE : sizeOfTable * 2;
     }
 
     HashTable *tmp = new HashTable(new_size);
 
-    for(int i = 0 ;i < sizeOfTable;i++){
-        std::shared_ptr<ListNode<imageNode>> runOfList = table[i]->head->next;
+    for (int i = 0; i < sizeOfTable; i++) {
+        std::shared_ptr <ListNode<imageNode>> runOfList = table[i]->head->next;
         while (runOfList->next != nullptr) {
             imageNode *tmp_data = new imageNode(*runOfList->returnData());
             tmp->insert(tmp_data);
@@ -72,7 +72,6 @@ void HashTable::resizeTable(int reduceOrIncrease){
     delete tmp;
 
 }
-
 
 
 void HashTable::reduceTable() {
@@ -106,12 +105,12 @@ void HashTable::increaseTable() {
     table = tmp;
 }
 */
-void HashTable::insert(imageNode * T) {
+void HashTable::insert(imageNode *T) {
     insertAux(T, sizeOfTable);
 }
 
 void HashTable::insertAux(imageNode *node, int size) {
-    int index = HashAux(size,node->id());
+    int index = HashAux(size, node->id());
     table[index]->insertFront(node);
     numberOfImages++;
     if (numberOfImages >= sizeOfTable - 1) {
@@ -119,11 +118,12 @@ void HashTable::insertAux(imageNode *node, int size) {
     }
 }
 
-imageNode* HashTable::find(int imageID){
+imageNode *HashTable::find(int imageID) {
     int index = Hash(imageID);
     return table[index]->find(imageID);
 }
-void HashTable::remove(int imageID){
+
+void HashTable::remove(int imageID) {
     int index = Hash(imageID);
     table[index]->remove(imageID);
     numberOfImages--;

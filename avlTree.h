@@ -22,6 +22,25 @@ public:
     ~Node();
 };
 
+template<class T>
+void updateMax(Node<T> *root) {
+    T *max;
+    if (root->left && root->right) {
+        if (root->left->maxInSubtree > root->right->maxInSubtree) {
+            max = root->data < root->left->maxInSubtree ? root->left->maxInSubtree : root->data;
+        } else {
+            max = root->data > root->right->maxInSubtree ? root->data : root->right->maxInSubtree;
+        }
+    } else if (root->left) {
+        max = root->data < root->left->maxInSubtree ? root->left->maxInSubtree : root->data;
+    } else if (root->right) {
+        max = root->data > root->right->maxInSubtree ? root->data : root->right->maxInSubtree;
+    } else {
+        max = root->data;
+    }
+    root->maxInSubtree = max;
+}
+
 
 template<class T>
 class AVLTree {
@@ -67,6 +86,7 @@ Node<T>::~Node() {
     }
 }
 
+
 template<class T>
 Node<T> *fillTree(T **arr, int start, int end) {
     if (start > end)
@@ -76,10 +96,7 @@ Node<T> *fillTree(T **arr, int start, int end) {
     root->left = fillTree(arr, start, mid - 1);
     root->right = fillTree(keyDataArr, mid + 1, end);
     root->height = 1 + max(getHeight(root->left), getHeight(root->right));
-    T *maxInSubtreeL = root->left->maxInSubtree;
-    T *maxInSubtreeR = root->right->maxInSubtree;
-    T *maxInSubtreeRoot = (maxInSubtreeL > maxInSubtreeR) ? maxInSubtreeL : maxInSubtreeR;
-    root->maxInSubtree = (maxInSubtreeRoot > *(arr[mid])) ? maxInSubtreeRoot : arr[mid];
+    updateMax(root);
     return root;
 }
 
@@ -183,8 +200,8 @@ static Node<T> *rightRotate(Node<T> *old_root) {
     old_root->height = 1 + max(getHeight(old_root->left), getHeight(old_root->right));
     new_root->height = 1 + max(getHeight(new_root->left), getHeight(new_root->right));
 
-    updateRank(old_root);//Updates Rank
-    updateRank(new_root);
+    updateMax(old_root);//Updates Rank
+    updateMax(new_root);
     return new_root;
 }
 
@@ -199,8 +216,8 @@ static Node<T> *leftRotate(Node<T> *old_root) {
     old_root->height = 1 + max(getHeight(old_root->left), getHeight(old_root->right));
     new_root->height = 1 + max(getHeight(new_root->left), getHeight(new_root->right));
 
-    updateRank(old_root);//Updates Rank
-    updateRank(new_root);
+    updateMax(old_root);//Updates Rank
+    updateMax(new_root);
 
     return new_root;
 }
@@ -241,7 +258,7 @@ static Node<T> *insertNode(Node<T> *root, T *data) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
-    updateRank(root);
+    updateMax(root);
     return root;
 }
 
@@ -288,7 +305,7 @@ rotateAux(Node<T> *curr_node, Node<T> *successor_father) // Dont ask me why but 
         curr_node->right = rightRotate(curr_node->right);
         return leftRotate(curr_node);
     }
-    updateRank(curr_node);
+    updateMax(curr_node);
     return curr_node;
 }
 
@@ -353,21 +370,8 @@ static Node<T> *removeNode(Node<T> *root, int key) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
-    updateRank(root);
+    updateMax(root);
     return root;
-}
-
-
-template<class T>
-static void updateRank(Node<T> *node) {
-    node->maxInSubtree = node->value;
-    if (node->right != NULL && node->right->maxInSubtree > node->maxInSubtree) {
-        node->maxInSubtree = node->right->maxInSubtree;
-    }
-    if (node->left != NULL && node->left->maxInSubtree > node->maxInSubtree) {
-        node->maxInSubtree = node->left->maxInSubtree;
-    }
-
 }
 
 static int max(int a, int b) {

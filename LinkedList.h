@@ -21,8 +21,8 @@
 
 template<class U>
 class ListNode {
-    std::shared_ptr<ListNode> next;
-    std::shared_ptr<ListNode> previous;
+    std::shared_ptr <ListNode> next;
+    std::shared_ptr <ListNode> previous;
     U *data;
 
     template<class T> friend
@@ -51,7 +51,7 @@ public:
 };
 
 template<class U>
-ListNode<U>::ListNode() : next(nullptr), previous(nullptr), data(nullptr){
+ListNode<U>::ListNode() : next(nullptr), previous(nullptr), data(nullptr) {
 }
 
 template<class U>
@@ -64,9 +64,10 @@ ListNode<U>::ListNode(U *node) : next(nullptr), previous(nullptr), data(node) //
 {}
 
 template<class U>
-ListNode<U>::ListNode(const ListNode &n): next(n.next) , previous(n.previous), data(n.data) {
+ListNode<U>::ListNode(const ListNode &n): next(n.next), previous(n.previous), data(n.data) {
 
 }
+
 template<class U>
 ListNode<U>::~ListNode() {
     if (data != nullptr)
@@ -75,6 +76,7 @@ ListNode<U>::~ListNode() {
     previous = nullptr;
     delete data;
 }
+
 template<class U>
 ListNode<U> &ListNode<U>::operator=(const ListNode &n) {
 
@@ -102,13 +104,15 @@ std::ostream &operator<<(std::ostream &os, const ListNode<R> &n) {
 
 template<class T>
 class LinkedList {
-    std::shared_ptr<ListNode<T>> head;
-    std::shared_ptr<ListNode<T>> tail;
+    std::shared_ptr <ListNode<T>> head;
+    std::shared_ptr <ListNode<T>> tail;
 
     int size;
 
     friend class CourseManager;
+
     friend class HashTable;
+
 public:
     LinkedList();
 
@@ -139,7 +143,7 @@ public:
 
     void insertEnd(T *input);
 
-    void insertAt(std::shared_ptr<ListNode<T>> location, T *input);
+    void insertAt(std::shared_ptr <ListNode<T>> location, T *input);
 };
 
 
@@ -161,7 +165,7 @@ template<class T>
 void LinkedList<T>::insertFront(const T &input) {
     // assert(&input != NULL);
     size++;
-    std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
+    std::shared_ptr <ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
 
     //Need to check if conversion does not cause problems
 
@@ -175,7 +179,7 @@ void LinkedList<T>::insertFront(const T &input) {
         return;
     } else {
 
-        std::shared_ptr<ListNode<T>> temp = head->next;
+        std::shared_ptr <ListNode<T>> temp = head->next;
         head->next = newNode;
         newNode->next = temp;
 
@@ -190,7 +194,7 @@ void LinkedList<T>::insertFront(T *input) {
     // assert(&input != NULL);
     size++;
 
-    std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
+    std::shared_ptr <ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
 
     //Need to check if conversion does not cause problems
 
@@ -204,7 +208,7 @@ void LinkedList<T>::insertFront(T *input) {
         return;
     } else {
 
-        std::shared_ptr<ListNode<T>> temp = head->next;
+        std::shared_ptr <ListNode<T>> temp = head->next;
         head->next = newNode;
         newNode->next = temp;
 
@@ -217,7 +221,7 @@ void LinkedList<T>::insertFront(T *input) {
 template<class T>
 void LinkedList<T>::insertEnd(const T &input) {
     assert(&input != nullptr);
-    std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
+    std::shared_ptr <ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
     //Need to check if conversion does not cause problems
 
     if (tail->previous == head) {
@@ -227,7 +231,7 @@ void LinkedList<T>::insertEnd(const T &input) {
         newNode->next = tail;
         newNode->previous = head;
     } else {
-        std::shared_ptr<ListNode<T>> temp = tail->previous;
+        std::shared_ptr <ListNode<T>> temp = tail->previous;
         tail->previous = newNode;
         newNode->previous = temp;
         newNode->next = tail;
@@ -239,8 +243,8 @@ void LinkedList<T>::insertEnd(const T &input) {
 
 template<class T>
 void LinkedList<T>::insertEnd(T *input) {
-  //  assert(&input != NULL);
-    std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
+    //  assert(&input != NULL);
+    std::shared_ptr <ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
     //Need to check if conversion does not cause problems
 
     if (tail->previous == head) {
@@ -250,7 +254,7 @@ void LinkedList<T>::insertEnd(T *input) {
         newNode->next = tail;
         newNode->previous = head;
     } else {
-        std::shared_ptr<ListNode<T>> temp = tail->previous;
+        std::shared_ptr <ListNode<T>> temp = tail->previous;
         tail->previous = newNode;
         newNode->previous = temp;
         newNode->next = tail;
@@ -312,10 +316,10 @@ T *LinkedList<T>::find(int key) {
 }
 
 template<class T>
-void LinkedList<T>::insertAt(std::shared_ptr<ListNode<T>> location, const T &input) {
+void LinkedList<T>::insertAt(std::shared_ptr <ListNode<T>> location, const T &input) {
     assert(location != NULL);
-    std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
-    std::shared_ptr<ListNode<T>> temp = location->next;
+    std::shared_ptr <ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
+    std::shared_ptr <ListNode<T>> temp = location->next;
     location->next = newNode;
     newNode->previous = location;
     assert(temp != nullptr);
@@ -324,10 +328,10 @@ void LinkedList<T>::insertAt(std::shared_ptr<ListNode<T>> location, const T &inp
 }
 
 template<class T>
-void LinkedList<T>::insertAt(std::shared_ptr<ListNode<T>> location, T *input) {
+void LinkedList<T>::insertAt(std::shared_ptr <ListNode<T>> location, T *input) {
     assert(location != NULL);
-    std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
-    std::shared_ptr<ListNode<T>> temp = location->next;
+    std::shared_ptr <ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
+    std::shared_ptr <ListNode<T>> temp = location->next;
     location->next = newNode;
     newNode->previous = location;
     assert(temp != nullptr);
@@ -336,10 +340,10 @@ void LinkedList<T>::insertAt(std::shared_ptr<ListNode<T>> location, T *input) {
 }
 
 template<class T>
-void LinkedList<T>::removeAt(std::shared_ptr<ListNode<T>> location) {
+void LinkedList<T>::removeAt(std::shared_ptr <ListNode<T>> location) {
 
-    std::shared_ptr<ListNode<T>> prevNode = location->previous;
-    std::shared_ptr<ListNode<T>> nextNode = location->next;
+    std::shared_ptr <ListNode<T>> prevNode = location->previous;
+    std::shared_ptr <ListNode<T>> nextNode = location->next;
 
     location->next = nullptr;
     location->previous = nullptr;
@@ -370,7 +374,7 @@ void LinkedList<T>::removeAt(std::shared_ptr<ListNode<T>> location) {
 }
 
 template<class T>
-void LinkedList<T>::remove(int key){
+void LinkedList<T>::remove(int key) {
     auto temp = head->next;
 
     while (temp != tail) {
@@ -380,11 +384,12 @@ void LinkedList<T>::remove(int key){
         temp = temp->next;
     }
 
-    if(temp != head && temp != tail) {
+    if (temp != head && temp != tail) {
         removeAt(temp);
         size--;
     }
 }
+
 template<class T>
 LinkedList<T>::~LinkedList() {
     auto temp1 = head;
@@ -402,16 +407,16 @@ LinkedList<T>::~LinkedList() {
 
 template<class T>
 std::ostream &operator<<(std::ostream &os, const LinkedList<ListNode<T>> &n) {
-os << "\t Head " << std::endl;
-auto temp1 = n->head;
+    os << "\t Head " << std::endl;
+    auto temp1 = n->head;
 
-while (temp1 != nullptr) {
-temp1 = temp1->next;
-os << temp1->get()->data << std::endl;
-os << "\t | " << std::endl;
-os << "\t v " << std::endl;
-}
-return os;
+    while (temp1 != nullptr) {
+        temp1 = temp1->next;
+        os << temp1->get()->data << std::endl;
+        os << "\t | " << std::endl;
+        os << "\t v " << std::endl;
+    }
+    return os;
 }
 
 template<class T>
