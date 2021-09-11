@@ -13,13 +13,14 @@
 #define INCREASE 3
 #define DEFAULTSIZE 10
 
+#include "LinkedList.h"
 #include "ImageNode.h"
 
 class HashTable {
     LinkedList<imageNode> **table;
     int sizeOfTable;
     int numberOfImages;
-    friend class LinkedList<imageNode>;
+
 
 
     void resizeTable(int reduceOrIncrease);
