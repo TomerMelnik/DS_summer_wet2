@@ -94,7 +94,7 @@ Node<T> *fillTree(T **arr, int start, int end) {
     int mid = (start + end) / 2;
     Node<T> *root = new Node<T>(arr[mid]);
     root->left = fillTree(arr, start, mid - 1);
-    root->right = fillTree(keyDataArr, mid + 1, end);
+    root->right = fillTree(arr, mid + 1, end);
     root->height = 1 + max(getHeight(root->left), getHeight(root->right));
     updateMax(root);
     return root;
