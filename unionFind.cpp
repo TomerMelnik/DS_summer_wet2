@@ -8,6 +8,8 @@
 AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
     LabelNode **arr1 = t1->toArray();
     LabelNode **arr2 = t2->toArray();
+    printf("starting");
+
     int size = t1->numOfNodes + t2->numOfNodes;
     LabelNode **arrTemp = (LabelNode **) malloc(sizeof(LabelNode *) * size);
     int i = 0;
@@ -27,10 +29,12 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
         }
         i++;
     }
+    printf("finishing");
     arrTemp = (LabelNode **) realloc(arrTemp, sizeof(LabelNode*) * size);
     AVLTree<LabelNode> *newTree = new AVLTree<LabelNode>(arrTemp, size);
     delete t1;
     delete t2;
+    printf("aa");
     return newTree;
 }
 
@@ -69,6 +73,7 @@ void unionFind::Union(int first, int second) {
         groupSizeArray[secondG] = groupSizeArray[secondG] + 1;
     }
     int g = Find(first);
+    printf("merging trees");
     AVLTree<LabelNode> *newTree = mergeTrees(groupLabelTree[firstG], groupLabelTree[secondG]);
     groupLabelTree[g] = newTree;
 }
