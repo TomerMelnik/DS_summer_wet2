@@ -60,7 +60,7 @@ public:
 
     Node<T> *find(int key);
 
-    T *toArray();
+    T **toArray();
 
     T *getMaxValue();
 
@@ -147,6 +147,7 @@ T **AVLTree<T>::toArray() {
     return arr;
 }
 
+template<class T>
 void toArrayAux(int *currentNum, Node<T> *current, T **arr) {
     if (!current) return;
     toArrayAux(currentNum, current->left, arr);

@@ -18,7 +18,7 @@ class LabelNode {
 
     LabelNode(int label, int score) : id(label), data(score) {}
 
-    ~LabelNode = defualt;
+    ~LabelNode() = defualt;
 
     int getId() { return id; }
 
