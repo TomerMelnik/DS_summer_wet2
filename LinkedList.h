@@ -21,14 +21,15 @@
 
 template<class U>
 class ListNode {
-
+    std::shared_ptr <ListNode> next;
+    std::shared_ptr <ListNode> previous;
     U *data;
 
     template<class T> friend class LinkedList;
+    friend class HashTable;
 
 public:
-    std::shared_ptr <ListNode> next;
-    std::shared_ptr <ListNode> previous;
+
 
     ListNode();
 
