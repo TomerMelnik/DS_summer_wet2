@@ -27,7 +27,7 @@ void imageNode::getHighestScoredLabel(int pixel, int *label) {
     AVLTree<LabelNode> *groupLabelTree = UF->groupLabelTree[g];
     if (!groupLabelTree->root) throw Failure();
     LabelNode *maxNode = groupLabelTree->getMaxValue();
-    label * = maxNode->getId();
+    label * = maxNode->getID();
 }
 
 void imageNode::mergeSuperPixels(int pixel1, int pixel2) {
