@@ -83,8 +83,6 @@ StatusType MergeSuperPixels(void *DS, int imageID, int pixel1, int pixel2) {
     catch (Invalid_Input &e) { return INVALID_INPUT; }
 }
 
-}
-
 void Quit(void **DS) {
 
     auto image_tagger = (ImageTagger *) (*DS);
