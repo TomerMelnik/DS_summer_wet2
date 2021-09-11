@@ -37,7 +37,7 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
 unionFind::unionFind(int size) : size(size) {
     groupArray = new int[size];
     groupSizeArray = new int[size];
-    groupLabelTree = new AVLTree<LabelNode>[size];
+    groupLabelTree = new AVLTree<LabelNode>*[size];
     for (int i = 0; i < size; i++) {
         groupArray[i] = i;
         groupSizeArray[i] = 1;
@@ -61,11 +61,11 @@ void unionFind::Union(int first, int second) {
     int secondG = Find(second);
     if (firstG == secondG) throw Failure();
     if (groupSizeArray[firstG] < groupSizeArray[secondG]) {
-        groupParentArray[firstG] = secondG;
+        groupArray[firstG] = secondG;
     } else if (groupSizeArray[firstG] > groupSizeArray[secondG]) {
-        groupParentArray[secondG] = firstG;
+        groupArray[secondG] = firstG;
     } else {
-        groupParentArray[firstG] = secondG;
+        groupArray[firstG] = secondG;
         groupSizeArray[secondG] = groupSizeArray[secondG] + 1;
     }
     int g = Find(first);
