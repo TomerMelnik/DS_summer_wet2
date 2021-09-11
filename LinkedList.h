@@ -27,6 +27,7 @@ class ListNode {
 
     template<class T> friend class LinkedList;
 
+
 public:
     ListNode();
 

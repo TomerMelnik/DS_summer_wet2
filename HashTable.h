@@ -19,6 +19,7 @@ class HashTable {
     LinkedList<imageNode> **table;
     int sizeOfTable;
     int numberOfImages;
+    friend class LinkedList<imageNode>;
 
 
     void resizeTable(int reduceOrIncrease);
