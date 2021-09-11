@@ -6,6 +6,7 @@
 #define DS_SUMMER_WET2_IMAGETAGGER_H
 
 #include "HashTable.h"
+#include "exceptions.h"
 
 class ImageTagger {
     int pixels;
