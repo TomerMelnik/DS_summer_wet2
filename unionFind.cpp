@@ -28,7 +28,7 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
         i++;
     }
     arrTemp = (LabelNode **) realloc(arrTemp, sizeof(LabelNode*) * size);
-    AVLTree<LabelNode> *newTree = new AVLTree<LabelNode>(arrTemp);
+    AVLTree<LabelNode> *newTree = new AVLTree<LabelNode>(arrTemp, size);
     delete t1;
     delete t2;
     return newTree;
