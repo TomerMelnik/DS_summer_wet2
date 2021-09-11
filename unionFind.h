@@ -15,10 +15,8 @@
 class LabelNode {
     int id;
     int data;
-
+public:
     LabelNode(int label, int score) : id(label), data(score) {}
-
-    ~LabelNode() = defualt;
 
     int getId() { return id; }
 

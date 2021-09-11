@@ -9,7 +9,7 @@ imageNode::~imageNode() {
 }
 
 void imageNode::setLabelScore(int pixel, int label, int score) {
-    int g = UF->find(pixel);
+    int g = UF->Find(pixel);
     AVLTree<LabelNode> *groupLabelTree = UF->groupLabelTree[g];
     if (groupLabelTree->find(label)) groupLabelTree->remove(label);
     LabelNode *labelNode = new LabelNode(label, score);
@@ -17,13 +17,13 @@ void imageNode::setLabelScore(int pixel, int label, int score) {
 }
 
 void imageNode::resetLabelScore(int pixel, int label) {
-    int g = UF->find(pixel);
+    int g = UF->Find(pixel);
     AVLTree<LabelNode> *groupLabelTree = UF->groupLabelTree[g];
     if (groupLabelTree->find(label)) groupLabelTree->remove(label);
 }
 
 void imageNode::getHighestScoredLabel(int pixel, int *label) {
-    int g = UF->find(pixel);
+    int g = UF->Find(pixel);
     AVLTree<LabelNode> *groupLabelTree = UF->groupLabelTree[g];
     if (!groupLabelTree->root) throw Failure();
     LabelNode *maxNode = groupLabelTree->getMaxValue();
