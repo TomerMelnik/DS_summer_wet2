@@ -19,13 +19,13 @@ if (!hash->find(imageID)) throw Failure();
 hash->remove(imageID);
 }
 void ImageTagger::SetLabelScore(int imageID, int pixel, int label, int score) {
-if (imageID<=0 || pixel<0 || pixel>=pixels || label <=0 || score <=0) throw Invalid_Input();
+if (imageID<=0 || pixel<0 || pixel>=this->pixels || label <=0 || score <=0) throw Invalid_Input();
 imageNode* node = hash->find(imageID);
 if (!node) throw Failure();
 node->setLabelScore(pixel, label, score);
 }
 void ImageTagger::ResetLabelScore(int imageID, int pixel, int label) {
-if (imageID<=0 || pixel<0 || pixel>=pixels || label <=0) throw Invalid_Input();
+    if (imageID<=0 || pixel<0 || pixel>=this->pixels || label <=0) throw Invalid_Input();
 imageNode* node = hash->find(imageID);
 if (!node) throw Failure();
 node->resetLabelScore(pixel, label);
