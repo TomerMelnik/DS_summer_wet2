@@ -151,7 +151,7 @@ template<class T>
 void toArrayAux(int *currentNum, Node<T> *current, T **arr) {
     if (!current) return;
     toArrayAux(currentNum, current->left, arr);
-    arr[currentNum] = current->data;
+    arr[(*currentNum)] = current->data;
     (*currentNum)++;
     toArrayAux(currentNum, current->right, arr);
 }
