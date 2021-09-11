@@ -141,9 +141,10 @@ T *AVLTree<T>::getMaxValue() {
 template<class T>
 T **AVLTree<T>::toArray() {
     T **arr = new T *[numOfNodes];
-    int *currentNum;
+    int *currentNum = new int();
     *currentNum = 0;
     toArrayAux(currentNum, root, arr);
+    delete currentNum;
     return arr;
 }
 
