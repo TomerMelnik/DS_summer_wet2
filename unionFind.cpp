@@ -16,11 +16,11 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
             arrTemp[k] = arr1[i];
             i++;
         } else if (arr1[i]->getID() < arr2[j]->getID()) {
-            arrTemp[i] = arr2[j];
+            arrTemp[k] = arr2[j];
             j++;
         } else {
-            arrTemp[i] = arr1[i];
-            arrTemp[i]->setData(arr1[i]->getData() + arr2[j]->getData());
+            arrTemp[k] = arr1[i];
+            arrTemp[k]->setData(arr1[i]->getData() + arr2[j]->getData());
             j++;
             i++;
         }
