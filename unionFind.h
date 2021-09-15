@@ -24,6 +24,7 @@ public:
 
     void setData(int data) { this->data = data; }
 
+
     bool operator>(LabelNode n) {
         return this->data > n.getData();
     }
