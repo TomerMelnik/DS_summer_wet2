@@ -13,13 +13,13 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
     int i = 0, j = 0, k = 0;
     while (i < n && j < m) {
         if (arr1[i]->getID() > arr2[j]->getID()) {
-            arrTemp[k] = LabelNode(arr1[i]->getID(), arr1[i]->getData());
+            arrTemp[k] = new LabelNode(arr1[i]->getID(), arr1[i]->getData());
             i++;
         } else if (arr1[i]->getID() < arr2[j]->getID()) {
-            arrTemp[k] = LabelNode(arr2[j]->getID(), arr2[j]->getData());
+            arrTemp[k] = new LabelNode(arr2[j]->getID(), arr2[j]->getData());
             j++;
         } else {
-            arrTemp[k] = LabelNode(arr2[j]->getID(),arr1[i]->getData() + arr2[j]->getData());
+            arrTemp[k] = new LabelNode(arr2[j]->getID(),arr1[i]->getData() + arr2[j]->getData());
             j++;
             i++;
         }
@@ -27,12 +27,12 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
     }
     while (i< n)
     {
-        arrTemp[k] = LabelNode(arr1[i]->getID(), arr1[i]->getData());
+        arrTemp[k] = new LabelNode(arr1[i]->getID(), arr1[i]->getData());
         i++; 
         k++;
     }
     while (j < m) {
-        arrTemp[k] = LabelNode(arr2[j]->getID(), arr2[j]->getData());
+        arrTemp[k] = new LabelNode(arr2[j]->getID(), arr2[j]->getData());
         j++; 
         k++;
     }
