@@ -83,13 +83,29 @@ static bool isInit = false;
 /***************************************************************************/
 /* main                                                                    */
 /***************************************************************************/
-
+/*
 int main(int argc, const char **argv) {
 
     char buffer[MAX_STRING_INPUT_SIZE];
 
     // Reading commands
     while (fgets(buffer, MAX_STRING_INPUT_SIZE, stdin) != NULL) {
+        fflush(stdout);
+        if (parser(buffer) == error)
+            break;
+    };
+    return 0;
+}
+*/
+
+
+
+int main(int argc, const char**argv) {
+
+    char buffer[MAX_STRING_INPUT_SIZE];
+    auto fd = fopen("./in.txt", "r");
+    // Reading commands
+    while (fgets(buffer, MAX_STRING_INPUT_SIZE, fd) != NULL) {
         fflush(stdout);
         if (parser(buffer) == error)
             break;
