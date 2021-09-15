@@ -20,6 +20,7 @@ void imageNode::resetLabelScore(int pixel, int label) {
     int g = UF->Find(pixel);
     AVLTree<LabelNode> *groupLabelTree = UF->groupLabelTree[g];
     if (groupLabelTree->find(label)) groupLabelTree->remove(label);
+    else throw Failure();
 }
 
 void imageNode::getHighestScoredLabel(int pixel, int *label) {
