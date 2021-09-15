@@ -9,18 +9,18 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
     LabelNode **arr1 = t1->toArray();
     LabelNode **arr2 = t2->toArray();
     int n = t1->numOfNodes, m = t2->numOfNodes;
-    LabelNode *arrTemp = (LabelNode *) malloc(sizeof(LabelNode) * (n+m));
+    LabelNode **arrTemp = (LabelNode **) malloc(sizeof(LabelNode*) * (n+m));
     int i = 0, j = 0, k = 0;
     while (i < n && j < m) {
         if (arr1[i]->getID() > arr2[j]->getID()) {
-            arrTemp[k] = *arr1[i];
+            arrTemp[k] = arr1[i];
             i++;
         } else if (arr1[i]->getID() < arr2[j]->getID()) {
-            arrTemp[k] = *arr2[j];
+            arrTemp[k] = arr2[j];
             j++;
         } else {
-            arrTemp[k] = *arr1[i];
-            arrTemp[k].setData(arr1[i]->getData() + arr2[j]->getData());
+            arrTemp[k] = arr1[i];
+            arrTemp[k]->setData(arr1[i]->getData() + arr2[j]->getData());
             j++;
             i++;
         }
@@ -28,16 +28,16 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
     }
     while (i< n)
     {
-        arrTemp[k] = *arr1[i];
+        arrTemp[k] = arr1[i];
         i++; 
         k++;
     }
     while (j < m) {
-        arrTemp[k] = *arr2[j];
+        arrTemp[k] = arr2[j];
         j++; 
         k++;
     }
-    arrTemp = (LabelNode *) realloc(arrTemp, sizeof(LabelNode) * k);
+    arrTemp = (LabelNode **) realloc(arrTemp, sizeof(LabelNode*) * k);
     AVLTree<LabelNode> *newTree = new AVLTree<LabelNode>(arrTemp, k);
     delete t1;
     delete t2;

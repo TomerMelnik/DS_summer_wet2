@@ -50,7 +50,7 @@ public:
 
     AVLTree<T>() : root(NULL), numOfNodes(0) {}
 
-    AVLTree<T>(T *arr, int size);
+    AVLTree<T>(T **arr, int size);
 
     ~AVLTree();
 
@@ -88,11 +88,11 @@ Node<T>::~Node() {
 
 
 template<class T>
-Node<T> *fillTree(T *arr, int start, int end) {
+Node<T> *fillTree(T **arr, int start, int end) {
     if (start > end)
         return nullptr;
     int mid = (start + end) / 2;
-    Node<T> *root = new Node<T>(&arr[mid]);
+    Node<T> *root = new Node<T>(arr[mid]);
     root->left = fillTree(arr, start, mid - 1);
     root->right = fillTree(arr, mid + 1, end);
     root->height = 1 + max(getHeight(root->left), getHeight(root->right));
@@ -101,7 +101,7 @@ Node<T> *fillTree(T *arr, int start, int end) {
 }
 
 template<class T>
-AVLTree<T>::AVLTree(T *arr, int size) : numOfNodes(size) {
+AVLTree<T>::AVLTree(T **arr, int size) : numOfNodes(size) {
     root = fillTree(arr, 0, size - 1);
 }
 
