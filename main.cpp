@@ -103,7 +103,7 @@ int main(int argc, const char **argv) {
 int main(int argc, const char**argv) {
 
     char buffer[MAX_STRING_INPUT_SIZE];
-    auto fd = fopen("./in.txt", "r");
+    auto fd = fopen("./53.txt", "r");
     // Reading commands
     while (fgets(buffer, MAX_STRING_INPUT_SIZE, fd) != NULL) {
         fflush(stdout);

@@ -46,7 +46,8 @@ void HashTable::resizeTable(int reduceOrIncrease) {
     for (int i = 0; i < sizeOfTable; i++) {
         std::shared_ptr <ListNode<imageNode>> runOfList = table[i]->head->next;
         while (runOfList->next != nullptr) {
-            imageNode *tmp_data = new imageNode(*runOfList->returnData());
+            imageNode *tmp_data = runOfList->data;
+            runOfList->data = nullptr;
             tmp->insert(tmp_data);
             runOfList = runOfList->next;
         }
