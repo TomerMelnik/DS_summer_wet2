@@ -9,7 +9,7 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
     LabelNode **arr1 = t1->toArray();
     LabelNode **arr2 = t2->toArray();
     int n = t1->numOfNodes, m = t2->numOfNodes;
-    LabelNode **arrTemp = (LabelNode **) malloc(sizeof(LabelNode*) * (n+m));
+    LabelNode **arrTemp = new LabelNode*[n+m];
     int i = 0, j = 0, k = 0;
     while (i < n && j < m) {
         if (arr1[i]->getID() > arr2[j]->getID()) {
@@ -36,13 +36,12 @@ AVLTree<LabelNode> *mergeTrees(AVLTree<LabelNode> *t1, AVLTree<LabelNode> *t2) {
         j++; 
         k++;
     }
-    arrTemp = (LabelNode **) realloc(arrTemp, sizeof(LabelNode*) * k);
     AVLTree<LabelNode> *newTree = new AVLTree<LabelNode>(arrTemp, k);
     delete t1;
     delete t2;
-    delete arr1;
-    delete arr2;
-    free(arrTemp);
+    delete[] arr1;
+    delete[] arr2;
+    delete[] arrTemp;
     return newTree;
 }
 
