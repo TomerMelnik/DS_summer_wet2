@@ -58,11 +58,6 @@ unionFind::unionFind(int size) : size(size) {
 
 unionFind::~unionFind() {
     delete[] groupArray;
-
-    for(int i = 0; i< size; i++)
-    {
-        delete groupLabelTree[i];
-    }
     delete[] groupLabelTree;
     delete[] groupSizeArray;
 }
@@ -76,6 +71,8 @@ void unionFind::Union(int first, int second) {
     int firstG = Find(first);
     int secondG = Find(second);
     if (firstG == secondG) throw Failure();
+    AVLTree<LabelNode>* tree1 = groupLabelTree[firstG];
+    AVLTree<LabelNode>* tree2 = groupLabelTree[secondG];
     if (groupSizeArray[firstG] < groupSizeArray[secondG]) {
         groupArray[firstG] = secondG;
     } else if (groupSizeArray[firstG] > groupSizeArray[secondG]) {
@@ -84,7 +81,9 @@ void unionFind::Union(int first, int second) {
         groupArray[firstG] = secondG;
         groupSizeArray[secondG] = groupSizeArray[secondG] + 1;
     }
+    groupLabelTree[firstG] = nullptr;
+    groupLabelTree[secondG] = nullptr;
     int g = Find(first);
-    AVLTree<LabelNode> *newTree = mergeTrees(groupLabelTree[firstG], groupLabelTree[secondG]);
+    AVLTree<LabelNode> *newTree = mergeTrees(tree1, tree2);
     groupLabelTree[g] = newTree;
 }
