@@ -58,7 +58,7 @@ unionFind::unionFind(int size) : size(size) {
 
 unionFind::~unionFind() {
     delete[] groupArray;
-    for(int i = 0; i< size; i++)
+    for(int i = 0; i< size; i++) //only way it works for some reason
     {
         delete groupLabelTree[i];
         groupLabelTree[i] = nullptr;
