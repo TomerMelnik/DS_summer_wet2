@@ -83,7 +83,7 @@ static bool isInit = false;
 /***************************************************************************/
 /* main                                                                    */
 /***************************************************************************/
-/*
+
 int main(int argc, const char **argv) {
 
     char buffer[MAX_STRING_INPUT_SIZE];
@@ -96,14 +96,14 @@ int main(int argc, const char **argv) {
     };
     return 0;
 }
-*/
 
 
 
+/*
 int main(int argc, const char**argv) {
 
     char buffer[MAX_STRING_INPUT_SIZE];
-    auto fd = fopen("./53.txt", "r");
+    auto fd = fopen("./tests/input/81.txt", "r");
     // Reading commands
     while (fgets(buffer, MAX_STRING_INPUT_SIZE, fd) != NULL) {
         fflush(stdout);
@@ -112,7 +112,7 @@ int main(int argc, const char**argv) {
     };
     return 0;
 }
-
+*/
 /***************************************************************************/
 /* Command Checker                                                         */
 /***************************************************************************/

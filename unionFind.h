@@ -16,6 +16,7 @@ class LabelNode {
     int id;
     int data;
 public:
+
     LabelNode(int label, int score) : id(label), data(score) {}
 
     int getID() { return id; }
@@ -26,13 +27,16 @@ public:
 
 
     bool operator>(LabelNode n) {
-        return this->data > n.getData();
+         return this->data > n.getData();
     }
 
     bool operator<(LabelNode n) {
         return this->data < n.getData();
     }
 
+    bool operator==(LabelNode n){
+        return this->data == n.getData() && this->getID() == n.getID();
+    }
 };
 
 class unionFind {
@@ -50,6 +54,7 @@ public:
 
     void Union(int first, int second);
 };
+
 
 
 #endif //DS_SUMMER_WET2_UNIONFIND_H

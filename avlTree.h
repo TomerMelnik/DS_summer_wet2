@@ -23,8 +23,21 @@ public:
 };
 
 template<class T>
+T* maxLabel(T* a,T* b){
+        if (a->getData() == b->getData()) {
+            return   a->getID() > b->getID() ? a : b;
+        }
+        else{
+            return  a->getData() > b->getData() ? a : b;
+        }
+    }
+
+
+template<class T>
 void updateMax(Node<T> *root) {
     T *max;
+
+    /*
     if (root->left && root->right) {
         if (root->left->maxInSubtree->getData() > root->right->maxInSubtree->getData()) {
             max = root->data->getData() < root->left->maxInSubtree->getData() ? root->left->maxInSubtree : root->data;
@@ -38,6 +51,24 @@ void updateMax(Node<T> *root) {
     } else {
         max = root->data;
     }
+     */
+    if (root->left && root->right) {
+        if(maxLabel(root->left->maxInSubtree,root->right->maxInSubtree) == root->left->maxInSubtree){
+            max = maxLabel(root->data,root->left->maxInSubtree);
+        }
+        else{
+            max = maxLabel(root->data,root->right->maxInSubtree);
+        }
+    } else if (root->left){
+        max = maxLabel(root->data,root->left->maxInSubtree);
+    }
+    else if(root->right){
+        max = maxLabel(root->data,root->right->maxInSubtree);
+    }
+    else{
+        max = root->data;
+    }
+
     root->maxInSubtree = max;
 }
 

@@ -44,6 +44,9 @@ void ImageTagger::GetHighestScoredLabel(int imageID, int pixel, int *label) {
     imageNode *node = hash->find(imageID);
     if (!node) throw Failure();
     node->getHighestScoredLabel(pixel, label);
+    if(*label == 178){
+
+    }
 }
 
 void ImageTagger::MergeSuperPixels(int imageID, int pixel1, int pixel2) {

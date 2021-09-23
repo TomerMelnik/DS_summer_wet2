@@ -92,3 +92,5 @@ void unionFind::Union(int first, int second) {
     AVLTree<LabelNode> *newTree = mergeTrees(tree1, tree2);
     groupLabelTree[g] = newTree;
 }
+
+
